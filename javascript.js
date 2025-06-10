@@ -103,17 +103,10 @@ function calculateResult() {
         return;
     } // Prevents trying to calculate with nothing
 
-    if (justCalculated) {
-        // If the user just calculated, reset the display
-        display.value = "";
-        displayTwo.value = "";
-        justCalculated = false;
-    }
-
     num2 = parseFloat(display.value);
 
     try {
-        let result = parseFloat(operate().toFixed(5)); // Perform the operation and format the result to 2 decimal places and prevent unnecessary trailing zeros
+        let result = parseFloat(operate().toFixed(5)); // Perform the operation and format the result to 5 decimal places and prevent unnecessary trailing zeros
         display.value = result;
         displayTwo.value = `${num1} ${operator} ${num2} =`;
         num1 = result; // Update num1 to the result for further calculations
@@ -121,8 +114,34 @@ function calculateResult() {
         operator = ""; // Reset operator for the next operation
         justCalculated = true; // Set flag to indicate a calculation was just performed
     } catch (error) {
-        display.value = "Error";
+        display.value = "Can't Divide by Zero!";
         displayTwo.value = "";
     }
 
+}
+
+function backspace() {
+    let display = document.getElementById("display");
+    if (display.value.length > 0) {
+        display.value = display.value.slice(0, -1); // Remove the last character from the display
+    }
+}
+
+
+document.addEventListener("keydown", keyboardInput);
+function keyboardInput(event) {
+    const key = event.key;
+    const display = document.getElementById("display");
+
+    if (key >= '0' && key <= '9' || key === '.') {
+        appendToDisplay(key);
+    } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+        operatorClick(key);
+    } else if (key === 'Enter' || key === '=') {
+        calculateResult();
+    } else if (key === 'Backspace') {
+        backspace();
+    } else if (key === 'Escape') {
+        clearDisplay();
+    }
 }
