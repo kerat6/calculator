@@ -39,15 +39,15 @@ input {
     padding: 10px;
 }
 
+.rows {
+    display: flex;
+    justify-content: center;
+}
+
 .buttons {
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
-
-.rows {
-    display: flex;
-    justify-content: space-between;
 }
 
 button {
@@ -59,6 +59,7 @@ button {
     border-radius: 5px;
     cursor: pointer;
     margin: 5px;
+    max-width: 20%;
 }
 
 button:hover {
